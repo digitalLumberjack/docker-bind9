@@ -1,4 +1,8 @@
 #!/bin/bash
+BIND9_TTL_REFRESH=${BIND9_TTL_REFRESH:-604800}
+BIND9_TTL_RETRY=${BIND9_TTL_RETRY:-86400}
+BIND9_TTL_EXPIRE=${BIND9_TTL_EXPIRE:-2419200}
+BIND9_TTL_MINIMUM=${BIND9_TTL_MINIMUM:-604800}
 
 if [[ ! -f /var/run/.stamp_installed ]]; then
   BIND9_KEY_ALGORITHM=${BIND9_KEY_ALGORITHM-"hmac-sha512"} # other options are in manpage for named.conf - hmac-md5, hmac-sha1, hmac-sha512
@@ -44,10 +48,10 @@ EOF
   cat <<EOF >> "/etc/bind/zones/db.${BIND9_ROOTDOMAIN}" 
 @		IN SOA	ns.${BIND9_ROOTDOMAIN}. root.${BIND9_ROOTDOMAIN}. (
 				20041125   ; serial
-				604800     ; refresh (1 week)
-				86400      ; retry (1 day)
-				2419200    ; expire (4 weeks)
-				604800     ; minimum (1 week)
+				${BIND9_TTL_REFRESH}     ; refresh (1 week)
+				${BIND9_TTL_RETRY}      ; retry (1 day)
+				${BIND9_TTL_EXPIRE}    ; expire (4 weeks)
+				${BIND9_TTL_MINIMUM}     ; minimum (1 week)
 				)
 			NS	ns.${BIND9_ROOTDOMAIN}.
 ns			A	${BIND9_IP}
