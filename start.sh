@@ -44,10 +44,10 @@ EOF
   cat <<EOF >> "/etc/bind/zones/db.${BIND9_ROOTDOMAIN}" 
 @		IN SOA	ns.${BIND9_ROOTDOMAIN}. root.${BIND9_ROOTDOMAIN}. (
 				20041125   ; serial
-				604800     ; refresh (1 week)
-				86400      ; retry (1 day)
-				2419200    ; expire (4 weeks)
-				604800     ; minimum (1 week)
+				${BIND9_SOA_REFRESH}    ; refresh
+				${BIND9_SOA_RETRY}      ; retry
+				${BIND9_SOA_EXPIRE}     ; expire
+				${BIND9_SOA_TTL}        ; negative ttl
 				)
 			NS	ns.${BIND9_ROOTDOMAIN}.
 ns			A	${BIND9_IP}
