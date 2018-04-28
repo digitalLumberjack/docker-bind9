@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ ! -f /var/run/.stamp_installed ]]; then
+if [[ ! -f /var/run/named/.stamp_installed ]]; then
   BIND9_KEY_ALGORITHM=${BIND9_KEY_ALGORITHM-"hmac-sha512"} # other options are in manpage for named.conf - hmac-md5, hmac-sha1, hmac-sha512
   if [[ -z "${BIND9_ROOTDOMAIN}" ]];then
     echo "The variable BIND9_ROOTDOMAIN must be set"
